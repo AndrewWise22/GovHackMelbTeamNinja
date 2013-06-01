@@ -52,7 +52,7 @@ MovieMaker mm;
 String movieName = "immigrationData";
 boolean outputToMovie = false;
 boolean autoAnimation = false;
-Location australiaLocation = new Location(-28,137);
+Location australiaLocation = new Location(-37,150);
 
 HashMap<String, Country> countryHashMap = new HashMap<String, Country>();
 HashMap<String, Immigrant> immigrantHashMap = new HashMap<String, Immigrant>();
@@ -63,7 +63,7 @@ HashMap<String, Immigrant> immigrantHashMap = new HashMap<String, Immigrant>();
 */
 
 ArrayList Z = new ArrayList(0);
-float colour = random(1);
+float colour = 0.5;
 boolean tracer = false;
 int depth;
 // end particle variables

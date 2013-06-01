@@ -105,30 +105,32 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
 
       map.addMarkers(currentCountryMarker);
       countryHashMap.put(ISO2, currentCountry);
-  
-  
       
-      /* test adding particles too */
+      /* Create particles representing immigrants etc */
       float px, py, pz;
       float m, v, theta, phi;
-      px = currentCountryMarker.getScreenPosition(map).x;
-      py = currentCountryMarker.getScreenPosition(map).y;
-      println(ISO2 + " " + immigrantCountry.total);
-        for(int i = 0; i < immigrantCountry.total; i++) {
-          pz = random(width);
-          //v = sq(random(sqrt(width/4)));
-          v = 2.0-random(5.0);
-          theta = random(TWO_PI);
-          particle p = new particle( px+v*cos(theta), py+v*sin(theta), pz, 0, 0, 0, 1 ); 
-          // push it in the right direction
-         p.gravitate( new particle( 
-          map.getScreenPosition(australiaLocation).x + 20 - random(40),
-          map.getScreenPosition(australiaLocation).y + 20 - random(40),
-          depth/2, 0, 0, 0, 5.0 + random (5.0) ));
+      px = currentCountryMarker.getLocation().x;
+      py = currentCountryMarker.getLocation().y;
       
+      float dx = australiaLocation.x - px;
+      float dy = australiaLocation.y - py;
+      
+      
+//      println(ISO2 + " " + immigrantCountry.total);
+        for(int i = 0; i < immigrantCountry.total / 10; i++) {
+          pz = random(width);
+          particle p = new particle( px, py, pz, 0, 0, 0, 0.1 ); 
+          
+          p.home = currentCountryMarker.getLocation();
+          p.dest = new Location(australiaLocation);
+          println(p.dest.y);
+          p.dest.x = p.dest.x + 2 - random(4);
+          p.dest.y = p.dest.y + 2 - random(4);
+          //p.colour = 33;
+          
+          p.respawn();
+        
           Z.add(p);
-
-//          println("Added particle." + px + "," + py);
        
         }
 
@@ -143,7 +145,7 @@ void LoadCountries() {
   List<Feature> countriesFeatureList = GeoJSONReader.loadData(this, "countries-simple.geo.json");
   List<Marker> countryPolygonMarkers = MapUtils.createSimpleMarkers(countriesFeatureList);
   setCountryMarkers(countryPolygonMarkers);
-  map.addMarkers(countryPolygonMarkers);
+//  map.addMarkers(countryPolygonMarkers);
  
   DebugFeatures(countriesFeatureList);
   

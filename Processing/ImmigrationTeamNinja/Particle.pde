@@ -51,28 +51,33 @@ void particleDraw() {
       ((particle) Z.get(i)).deteriorate();
     }
     */
-    ((particle) Z.get(i)).deteriorate();
+    ((particle) Z.get(i)).deteriorate(); 
+ /*
     ((particle) Z.get(i)).gravitate( new particle( 
-      map.getScreenPosition(australiaLocation).x,
-      map.getScreenPosition(australiaLocation).y,
-      depth/2, 0, 0, 0, 0.05 ));
+      australiaLocation.x,
+      australiaLocation.y,
+      depth/2, 0, 0, 0, 0.05 )); */
 
-
-    ((particle) Z.get(i)).update();
+    particle p =     ((particle) Z.get(i));
+    p.update();
     r = float(i)/Z.size();
     colorMode(HSB,1);
-    if( ((particle) Z.get(i)).magnitude/100 < 0.1 ) {
+
+    if(p.magnitude/100 < 0.1 ) {
       stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), ((particle) Z.get(i)).magnitude/100+abs(((particle) Z.get(i)).z/depth)*0.05 );
     }
     else {
       stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), 0.1+abs(((particle) Z.get(i)).z/depth)*0.05 );
     }
-    ((particle) Z.get(i)).display();
+    p.display();/*
+    if ( p.magnitude == 0) {
+      Z.remove(i);
+    }*/
   }
-
+/*
   colour+=random(0.01);
   colour = colour%1;
-
+*/
   //filter(INVERT);
   
   
@@ -89,6 +94,8 @@ class particle {
   float theta;
   float phi;
   float mass;
+  Location home;
+  Location dest;
    
   particle( float dx, float dy, float dz, float V, float T, float P, float M ) {
     x = dx;
@@ -112,6 +119,24 @@ class particle {
     theta = T;
     phi = P;
     mass = M;
+  }
+  
+  void respawn() {
+      float dx = dest.x - home.x;
+      float dy = dest.y - home.y;
+      float delta = random(1.0);
+ 
+      x = home.x + delta * dx + 2 - random(4.0);
+      y = home.y + delta * dy + 2 - random(4.0);
+      px = x;
+      py = y;
+      // push it in the right direction
+      gravitate( new particle( 
+        dest.x + 2 - random(4),
+        dest.y + 2 - random(4),
+        depth/2, 0, 0, 0, 5.0 + random (5.0) ));
+   
+    
   }
    
   void gravitate( particle C ) {
@@ -176,19 +201,39 @@ class particle {
    
   void deteriorate() {
 //    magnitude *= 0.925;
-    magnitude *= 0.98;
+//    magnitude *= 0.90;
+    float d = (x - dest.x) * (x - dest.x) + (y - dest.y) * (y - dest.y);
+    if (d < 20) {
+        //magnitude = 0;
+        x = home.x;
+        y = home.y;
+        px = home.x;
+        py = home.y;
+        
+    } 
   }
    
   void update() {
-     
-    x += magnitude * cos(phi) * cos(theta);
-    y += magnitude * cos(phi) * sin(theta);
+    magnitude = min (magnitude, 1);     
+    if (random(10)<2) { phi += (1 - random(2)) * 0.5; }
+    x += magnitude * cos(phi) * cos(theta) + (2 - random(4))*0.1;
+    y += magnitude * cos(phi) * sin(theta) + (2 - random(4))*0.1;
     z += magnitude * sin(phi);
+      gravitate( 
+      new particle( 
+        dest.x,
+        dest.y,
+        depth/2, 0, 0, 0, (5.0 + random (5.0) )/0.1));
+    
+
  
   }
    
   void display() {
-    line(px,py,x,y);
+    Location pl = new Location (px, py);
+    Location l = new Location(x,y);
+    line(map.getScreenPosition(pl).x, map.getScreenPosition(pl).y,
+         map.getScreenPosition(l).x, map.getScreenPosition(l).y);
     px = x;
     py = y;
   }
