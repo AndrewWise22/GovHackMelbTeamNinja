@@ -16,20 +16,21 @@ void particleSetup() {
     py = random(height);
     pz = random(depth);
     m = random(50);
-    for(int i = int((Z.length-1000)*k/n); i < int((Z.length-1000)*(k+1)/n); i++) {
+    for(int i = int((Z.size()-1000)*k/n); i < int((Z.size()-1000)*(k+1)/n); i++) {
       v = sq(random(sqrt(m)));
       theta = random(TWO_PI);
       phi = random(TWO_PI);
-      Z[i] = new particle( px+v*cos(phi)*cos(theta), py+v*cos(phi)*sin(theta), pz+v*sin(phi), 0, 0, 0, 1 );
+      Z.add(new particle( px+v*cos(phi)*cos(theta), py+v*cos(phi)*sin(theta), pz+v*sin(phi), 0, 0, 0, 1 ));
     }
   }
   px = width/2;
   py = height/2;
-  for(int i = Z.length-1000; i < Z.length; i++) {
+  int i;
+  for(i = 0; i < 100; i++) {
     pz = random(depth);
     v = sq(random(sqrt(width/4)));
     theta = random(TWO_PI);
-    Z[i] = new particle( px+v*cos(theta), py+v*sin(theta), pz, 0, 0, 0, 1 ); 
+    Z.add(new particle( px+v*cos(theta), py+v*sin(theta), pz, 0, 0, 0, 1 )); 
  
   }
 }
@@ -38,27 +39,35 @@ void particleSetup() {
 void particleDraw() {
 
   float r;
-  for(int i = 0; i < Z.length; i++) {
-    if( mousePressed && mouseButton == LEFT ) {
-      Z[i].gravitate( new particle( mouseX, mouseY, depth/2, 0, 0, 0, 0.75 ) );
+  for(int i = 0; i < Z.size(); i++) {
+/*    if( mousePressed && mouseButton == LEFT ) {
+      if(i==0) { println("Particle 0 at " + ((particle) Z.get(i)).x); } 
     }
     else if( mousePressed && mouseButton == RIGHT ) {
-      Z[i].repel( new particle( mouseX, mouseY, depth/2, 0, 0, 0, 1 ) );
+      ((particle) Z.get(i)).repel( new particle( mouseX, mouseY, depth/2, 0, 0, 0, 1 ) );
     }
+    
     else {
-      Z[i].deteriorate();
+      ((particle) Z.get(i)).deteriorate();
     }
+    */
+    ((particle) Z.get(i)).deteriorate();
+    ((particle) Z.get(i)).gravitate( new particle( 
+      map.getScreenPosition(australiaLocation).x,
+      map.getScreenPosition(australiaLocation).y,
+      depth/2, 0, 0, 0, 0.05 ));
 
-    Z[i].update();
-    r = float(i)/Z.length;
+
+    ((particle) Z.get(i)).update();
+    r = float(i)/Z.size();
     colorMode(HSB,1);
-    if( Z[i].magnitude/100 < 0.1 ) {
-      stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), Z[i].magnitude/100+abs(Z[i].z/depth)*0.05 );
+    if( ((particle) Z.get(i)).magnitude/100 < 0.1 ) {
+      stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), ((particle) Z.get(i)).magnitude/100+abs(((particle) Z.get(i)).z/depth)*0.05 );
     }
     else {
-      stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), 0.1+abs(Z[i].z/depth)*0.05 );
+      stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), 0.1+abs(((particle) Z.get(i)).z/depth)*0.05 );
     }
-    Z[i].display();
+    ((particle) Z.get(i)).display();
   }
 
   colour+=random(0.01);
@@ -166,7 +175,8 @@ class particle {
   }
    
   void deteriorate() {
-    magnitude *= 0.925;
+//    magnitude *= 0.925;
+    magnitude *= 0.98;
   }
    
   void update() {
