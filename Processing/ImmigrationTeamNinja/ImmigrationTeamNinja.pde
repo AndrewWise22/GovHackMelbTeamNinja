@@ -30,7 +30,7 @@ import codeanticode.glgraphics.*;
 import processing.video.MovieMaker;
 
 //treemap
-import treemap.*;
+//import treemap.*;
 
 /*
 Variable declarations
@@ -45,6 +45,7 @@ MovieMaker mm;
 String movieName = "immigrationData";
 boolean outputToMovie = false;
 boolean autoAnimation = false;
+Location australiaLocation = new Location(-28,137);
 
 HashMap<String, Country> countryHashMap = new HashMap<String, Country>();
 HashMap<String, Immigrant> immigrantHashMap = new HashMap<String, Immigrant>();

@@ -73,8 +73,6 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
      
      //if(name.equals("Taiwan")) {
        
-      
-       
        Country currentCountry = new Country();
        currentCountry.name = name;
        
@@ -85,8 +83,10 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
          // Adapt style
       currentCountryMarker.setColor(color(0, 0, 255, 100));
       currentCountryMarker.setStrokeColor(color(0, 0, 255));
-      currentCountryMarker.setStrokeWeight(immigrantCountry.immigrantCountry);
+      currentCountryMarker.setStrokeWeight(immigrantCountry.number);
       map.addMarkers(currentCountryMarker);
+      
+      currentCountry.refugeeCount= immigrantCountry.number;
       countryHashMap.put(ISO2, currentCountry);
      }
   }
@@ -119,5 +119,10 @@ void setCountryMarkers(List<Marker> countryPolygonMarkers) {
 
 }
 
+
+void setupCountryParticles() {
+ 
+  
+}
 
 
