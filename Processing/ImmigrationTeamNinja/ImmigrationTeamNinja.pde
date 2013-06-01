@@ -63,7 +63,6 @@ HashMap<String, Immigrant> immigrantHashMap = new HashMap<String, Immigrant>();
 */
 
 ArrayList Z = new ArrayList(0);
-float colour = 0.5;
 boolean tracer = false;
 int depth;
 // end particle variables

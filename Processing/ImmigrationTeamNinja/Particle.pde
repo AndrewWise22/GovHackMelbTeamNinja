@@ -62,14 +62,19 @@ void particleDraw() {
     p.update();
     r = float(i)/Z.size();
     colorMode(HSB,1);
-
+/*
     if(p.magnitude/100 < 0.1 ) {
-      stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), ((particle) Z.get(i)).magnitude/100+abs(((particle) Z.get(i)).z/depth)*0.05 );
+      stroke( p.colour, pow(r,0.1), 0.9*sqrt(1-r), ((particle) Z.get(i)).magnitude/100+abs(((particle) Z.get(i)).z/depth)*0.05 );
     }
     else {
-      stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), 0.1+abs(((particle) Z.get(i)).z/depth)*0.05 );
+      stroke( p.colour, pow(r,0.1), 0.9*sqrt(1-r), 0.1+abs(((particle) Z.get(i)).z/depth)*0.05 );
     }
-    p.display();/*
+    */
+    stroke( 
+      p.colour);
+      
+p.display();
+    /*
     if ( p.magnitude == 0) {
       Z.remove(i);
     }*/
@@ -94,6 +99,8 @@ class particle {
   float theta;
   float phi;
   float mass;
+  float colour;
+  
   Location home;
   Location dest;
    
@@ -216,14 +223,15 @@ class particle {
   void update() {
     magnitude = min (magnitude, 1);     
     if (random(10)<2) { phi += (1 - random(2)) * 0.5; }
-    x += magnitude * cos(phi) * cos(theta) + (2 - random(4))*0.1;
-    y += magnitude * cos(phi) * sin(theta) + (2 - random(4))*0.1;
+    x += magnitude * cos(phi) * cos(theta) + (2 - random(4))*0.01;
+    y += magnitude * cos(phi) * sin(theta) + (2 - random(4))*0.01;
     z += magnitude * sin(phi);
-      gravitate( 
+    gravitate( 
       new particle( 
         dest.x,
         dest.y,
-        depth/2, 0, 0, 0, (5.0 + random (5.0) )/0.1));
+        depth/2, 0, 0, 0, (5.0 + random (5.0) )/0.1)
+    );
     
 
  

@@ -1,3 +1,4 @@
+
 // Even though there are multiple objects, we still only need one class. 
 // No matter how many cookies we make, only one cookie cutter is needed.
 class Country { 
@@ -36,9 +37,7 @@ class Country {
     rectMode(CENTER);
     rect(xpos,ypos,20,10);
   }
-
 }
-
 
 void DebugFeatures(List<Feature> countriesFeatureList) {
   
@@ -75,52 +74,71 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
      String ISO2 = currentFeature.getStringProperty("ISO2");
      // println(name);
       Immigrant immigrantCountry = immigrantHashMap.get(ISO2);
-      println("Testing country ISO2 " + ISO2 + " " + name);
+//      println("Testing country ISO2 " + ISO2 + " " + name);
       if (immigrantCountry != null && immigrantCountry.ISO2 != null) {     
      
-       Country currentCountry = new Country();
-       currentCountry.name = name;
-
-
-       currentCountry.population = population;
-       
-       if(population > 0)
-       {
-         currentCountry.refugeePercent = (float)immigrantCountry.total / (float) population;
-       }
-        else
-       { 
-          currentCountry.refugeePercent = 0;
-       }
-       
-       println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name + currentCountry.refugeePercent);
-
-       Location currentCountryLocation = new Location(latitude,longitude);
-       SimplePointMarker currentCountryMarker = new SimplePointMarker(currentCountryLocation);
-         // Adapt style
-      currentCountryMarker.setColor(color(0, 0, 255, 100));
-      currentCountryMarker.setStrokeColor(color(0, 0, 255));
-
-      currentCountryMarker.setStrokeWeight(1);
-
-      map.addMarkers(currentCountryMarker);
-      countryHashMap.put(ISO2, currentCountry);
-      
-      /* Create particles representing immigrants etc */
-      float px, py, pz;
-      float m, v, theta, phi;
-      px = currentCountryMarker.getLocation().x;
-      py = currentCountryMarker.getLocation().y;
-      
-      float dx = australiaLocation.x - px;
-      float dy = australiaLocation.y - py;
-      
-      
-//      println(ISO2 + " " + immigrantCountry.total);
+         Country currentCountry = new Country();
+         currentCountry.name = name;
+  
+  
+         currentCountry.population = population;
+         
+         if(population > 0)
+         {
+           currentCountry.refugeePercent = (float)immigrantCountry.total / (float) population;
+         }
+          else
+         { 
+            currentCountry.refugeePercent = 0;
+         }
+         
+         println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name + currentCountry.refugeePercent);
+  
+         Location currentCountryLocation = new Location(latitude,longitude);
+         SimplePointMarker currentCountryMarker = new SimplePointMarker(currentCountryLocation);
+           // Adapt style
+        currentCountryMarker.setColor(color(0, 0, 255, 100));
+        currentCountryMarker.setStrokeColor(color(0, 0, 255));
+  
+        currentCountryMarker.setStrokeWeight(1);
+  
+        map.addMarkers(currentCountryMarker);
+        countryHashMap.put(ISO2, currentCountry);
+        
+        // Create particles representing immigrants etc 
+        float px, py, pz;
+        float m, v, theta, phi;
+        px = currentCountryMarker.getLocation().x;
+        py = currentCountryMarker.getLocation().y;
+        
+        float dx = australiaLocation.x - px;
+        float dy = australiaLocation.y - py;
+        
+        
         for(int i = 0; i < immigrantCountry.total / 10; i++) {
           pz = random(width);
           particle p = new particle( px, py, pz, 0, 0, 0, 0.1 ); 
+          p.colour = 0.5;
+          p.home = new Location(currentCountryMarker.getLocation());
+          p.home.x += (1 - random(2)) * 3;
+          p.home.y += (1 - random(2)) * 3;
+          p.dest = new Location(australiaLocation);
+          println(p.dest.y);
+          p.dest.x = p.dest.x + 2 - random(4);
+          p.dest.y = p.dest.y + 2 - random(4);
+          //p.colour = 33;
           
+          p.respawn();
+        
+          Z.add(p);
+       
+        }
+
+        for(int i = 0; i < immigrantCountry.nonima / 10; i++) {
+          pz = random(width);
+          particle p = new particle( px, py, pz, 0, 0, 0, 0.1 ); 
+          p.colour = 0.0;
+//          p.home = new Location(-7, 106);
           p.home = currentCountryMarker.getLocation();
           p.dest = new Location(australiaLocation);
           println(p.dest.y);
@@ -134,9 +152,29 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
        
         }
 
-      
-     }
-  }
+        for(int i = 0; i < immigrantCountry.nonima / 10; i++) {
+          pz = random(width);
+          particle p = new particle( px, py, pz, 0, 0, 0, 0.1 ); 
+          p.colour = 0.8;
+          p.home = new Location(-7, 106); // all boat people leave from indonesia somewhere in our model...
+//          p.home = currentCountryMarker.getLocation();
+          p.dest = new Location(australiaLocation);
+          println(p.dest.y);
+          p.dest.x = p.dest.x + 2 - random(4);
+          p.dest.y = p.dest.y + 2 - random(4);
+          //p.colour = 33;
+          
+          p.respawn();
+        
+          Z.add(p);
+       
+        }
+
+
+
+     }//if
+     
+  } //for
 }
 
 
@@ -151,12 +189,13 @@ void LoadCountries() {
   
 }
 
+
 // shader maps taken from unolding examples
 // https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/data/choropleth/ChoroplethMapApp.java
 
 void setCountryMarkers(List<Marker> countryPolygonMarkers) {
   
-	for (Marker marker : countryPolygonMarkers) {
+  for (Marker marker : countryPolygonMarkers) {
 		// Find data for country of the current marker
 		String countryId = marker.getId();
 		//DataEntry dataEntry = dataEntriesMap.get(countryId);
@@ -166,6 +205,7 @@ void setCountryMarkers(List<Marker> countryPolygonMarkers) {
 
 
 }
+
 
 
 
