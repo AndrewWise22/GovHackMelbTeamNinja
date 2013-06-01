@@ -97,7 +97,6 @@ void setup() {
 
  
   LoadImmigrantData();
- 
   LoadCountries();
    
   //List<Feature> countries = GeoJSONReader.loadData(this, "countries-simple.geo.json");

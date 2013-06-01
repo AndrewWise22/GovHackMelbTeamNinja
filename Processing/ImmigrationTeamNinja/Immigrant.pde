@@ -3,11 +3,13 @@
 class Immigrant {
   String sourceCountry;
   String destinationCountry;
-  String stream; //family // skill //Special Eligibility
+  int family;
+  int skill;
+  int specialeligibility;
   int year = 1900;
+  int total = 0;
   String ISO2;
   String ISO3;
-  int number= 0;
   //particle immigrantParticle = new particle
   
   Immigrant() {
@@ -48,16 +50,28 @@ void LoadImmigrantData() {
 		for (String row : rows) {
                        println(i);
                         String[] columns = row.split(",");
+                        String countrycode = columns[0];
+                        Immigrant dataEntry;
+                        if (immigrantHashMap.containsKey(countrycode)) {
+                          // update the existing one
+                          dataEntry = (Immigrant)immigrantHashMap.get(countrycode);
+                          println("Found countrycode " + countrycode);
+                        } else {
+                          dataEntry = new Immigrant();
+                          dataEntry.ISO2 = columns[0];
+                          dataEntry.sourceCountry = columns[0];
+                          immigrantHashMap.put(dataEntry.sourceCountry, dataEntry);
+                        }
                         
-                        Immigrant dataEntry = new Immigrant();
-                        
-			// Reads country name and population density value from CSV row
-                        dataEntry.ISO2 = columns[0];
-                        dataEntry.sourceCountry = columns[0];
-                        dataEntry.stream = columns[1];
-                        dataEntry.number = Integer.parseInt(columns[2]);
-                        immigrantHashMap.put(dataEntry.sourceCountry, dataEntry);
+                        if (columns[1].equalsIgnoreCase("Family"))
+                          dataEntry.family = Integer.parseInt(columns[2]);
+                        else if (columns[2].equalsIgnoreCase("Skill"))
+                          dataEntry.family = Integer.parseInt(columns[2]);
+                        else if (columns[2].equalsIgnoreCase("Special Eligibility"))
+                          dataEntry.specialeligibility = Integer.parseInt(columns[2]);
+                          
                         println(dataEntry);
+                        dataEntry.total = dataEntry.family + dataEntry.skill + dataEntry.specialeligibility;
                         i++;
 		}
 
