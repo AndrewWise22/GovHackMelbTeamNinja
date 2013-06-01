@@ -71,23 +71,45 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
     println("Testing country ISO2 " + ISO2 + " " + name);
     if (immigrantCountry != null && immigrantCountry.ISO2 != null) {     
      
-     //if(name.equals("Taiwan")) {
-       
        Country currentCountry = new Country();
        currentCountry.name = name;
-       
-       
-       println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name);
+  //     println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name);
        Location currentCountryLocation = new Location(latitude,longitude);
        SimplePointMarker currentCountryMarker = new SimplePointMarker(currentCountryLocation);
          // Adapt style
       currentCountryMarker.setColor(color(0, 0, 255, 100));
       currentCountryMarker.setStrokeColor(color(0, 0, 255));
-      currentCountryMarker.setStrokeWeight(immigrantCountry.number);
+      currentCountryMarker.setStrokeWeight(1);
       map.addMarkers(currentCountryMarker);
-      
-      currentCountry.refugeeCount= immigrantCountry.number;
       countryHashMap.put(ISO2, currentCountry);
+  
+  
+      
+      /* test adding particles too */
+      float px, py, pz;
+      float m, v, theta, phi;
+      px = currentCountryMarker.getScreenPosition(map).x;
+      py = currentCountryMarker.getScreenPosition(map).y;
+      println(ISO2 + " " + immigrantCountry.number);
+        for(int i = 0; i < immigrantCountry.number; i++) {
+          pz = random(width);
+          //v = sq(random(sqrt(width/4)));
+          v = 2.0-random(5.0);
+          theta = random(TWO_PI);
+          particle p = new particle( px+v*cos(theta), py+v*sin(theta), pz, 0, 0, 0, 1 ); 
+          // push it in the right direction
+         p.gravitate( new particle( 
+          map.getScreenPosition(australiaLocation).x + 20 - random(40),
+          map.getScreenPosition(australiaLocation).y + 20 - random(40),
+          depth/2, 0, 0, 0, 5.0 + random (5.0) ));
+      
+          Z.add(p);
+
+//          println("Added particle." + px + "," + py);
+       
+        }
+
+      
      }
   }
 }
@@ -119,10 +141,5 @@ void setCountryMarkers(List<Marker> countryPolygonMarkers) {
 
 }
 
-
-void setupCountryParticles() {
- 
-  
-}
 
 

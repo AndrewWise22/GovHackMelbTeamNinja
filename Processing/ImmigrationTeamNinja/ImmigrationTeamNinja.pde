@@ -4,6 +4,13 @@
 
 // mbiles example
 
+/*
+
+Libraries you need:
+http://unfoldingmaps.org/
+http://sourceforge.net/projects/glgraphics/files/glgraphics/1.0/
+*/
+
 import processing.opengl.*;
 import codeanticode.glgraphics.*;
 import de.fhpotsdam.unfolding.*;
@@ -55,7 +62,7 @@ HashMap<String, Immigrant> immigrantHashMap = new HashMap<String, Immigrant>();
   Particle variables
 */
 
-particle[] Z = new particle[1000];
+ArrayList Z = new ArrayList(0);
 float colour = random(1);
 boolean tracer = false;
 int depth;
@@ -64,7 +71,8 @@ int depth;
 void setup() {
   size(1280, 720);
   
-  particleSetup();
+//  particleSetup();
+
   
   String mbTilesConnectionString = "jdbc:sqlite:";
   //mbTilesConnectionString += sketchPath("data/blank-1-3.mbtiles");
