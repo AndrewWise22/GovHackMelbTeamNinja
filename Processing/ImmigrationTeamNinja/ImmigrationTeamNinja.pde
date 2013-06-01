@@ -29,16 +29,38 @@ import codeanticode.glgraphics.*;
 //movie maker
 import processing.video.MovieMaker;
 
+//treemap
+import treemap.*;
+
+/*
+Variable declarations
+
+*/
 
 UnfoldingMap map;
 float timeStamp = 0;
+float frameRate = 30;
+Calendar currentDate = Calendar.getInstance();
 MovieMaker mm;
 String movieName = "immigrationData";
+boolean outputToMovie = false;
+boolean autoAnimation = false;
 
 
+/*
+  Particle variables
+*/
+
+particle[] Z = new particle[8000];
+float colour = random(1);
+boolean tracer = false;
+int depth;
+// end particle variables
 
 void setup() {
   size(1280, 720);//, GLConstants.GLGRAPHICS);
+  
+  particleSetup();
   
   String mbTilesConnectionString = "jdbc:sqlite:";
   //mbTilesConnectionString += sketchPath("data/blank-1-3.mbtiles");
@@ -46,18 +68,21 @@ void setup() {
 
   map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
   MapUtils.createDefaultEventDispatcher(this, map);
-  map.setZoomRange(1, 17);
+  map.setZoomRange(1, 12);
+  
   
   List<Feature> countries = GeoJSONReader.loadData(this, "countries-simple.geo.json");
   List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
   map.addMarkers(countryMarkers);
  
-
-
-  //mm = new MovieMaker(this, width, height, movieName+".mov", 30, MovieMaker.ANIMATION, MovieMaker.HIGH);
-  mm = new MovieMaker(this, width, height, movieName+".mov");
-
+  if(outputToMovie) {
+    //mm = new MovieMaker(this, width, height, movieName+".mov", 30, MovieMaker.ANIMATION, MovieMaker.HIGH);
+    mm = new MovieMaker(this, width, height, movieName+".mov");
+  }
   background(160, 32, 32);
+
+
+  currentDate.set(Calendar.YEAR, 1900);
 
   //frameRate(30);   
   
@@ -71,24 +96,72 @@ void draw() {
   //map.z
   map.draw();
 
-  fill(0);
- text(mouseLocation.getLat() + ", " + mouseLocation.getLon(), mouseX, mouseY);
+  fill(255,0,0,191);
+  rect(0,50,200,40);
+  text(mouseLocation.getLat() + ", " + mouseLocation.getLon(), mouseX, mouseY);
+  rect(100,100,20,100);
+
+
+  particleDraw();  
+  colorMode(RBG,1); // reset colour mode back to RBG as particles force different mode
+
+
+  
+  drawTeamNinja();
+  drawCalendarStamp();
+
   
   timeStamp = timeStamp + 1;
-  if(timeStamp <30)
+  
+  if(outputToMovie)
   {
-  mm.addFrame();
+  movieRender();
   }
-  println("Outputting Movie..." + Float.toString(timeStamp));
-  if(timeStamp > 30)
-  {
-     mm.finish();
-     exit();
-  }
-
 
 }
+
+
+
+void movieRender() {
+  
+  if(timeStamp < frameRate * 5) // render 5 seconds
+  {
+    if(outputToMovie)
+    {
+    println("Outputting Movie Fame: " + Float.toString(timeStamp));  
+    mm.addFrame();
+    }
+  }
+  else
+  {
+     mm.finish();
+     exit();    
+  }
  
+  
+}
+
+void drawCalendarStamp() {
+  fill(255,0,0);
+  textSize(48);
+  println("Current DateTime = " + currentDate);
+  
+  text(currentDate.get(Calendar.YEAR), 1000, 680);
+
+  if(timeStamp % frameRate == 0)
+  {
+    currentDate.add(Calendar.YEAR,1);
+  }
+  
+}
+
+
+void drawTeamNinja() {
+  fill(255);
+  textSize(24);
+  text("#GovHack 2103 Melbourne - Team Ninja's Immigration Presentation", 50, 700);
+  
+} 
 
 
 void updateFame()
@@ -118,15 +191,29 @@ void updateFame()
 
 void displayTreeMap() {
   
+  
 }
 
 void keyPressed() {
-  if (key == ' ') {
+  if (key == 'm') {
+    // Start recording the movie
+    mm.finish();
+
+  }
+
+
+  if (key == 'q') {
     // Finish the movie if space bar is pressed
     mm.finish();
     // Quit running the sketch once the file is written
     exit();
   }
+  
+  if (key == ' ') {
+    // Pause the animation time increase
+    autoAnimation = false;
+
+  }  
 }
 
 
