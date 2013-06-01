@@ -86,7 +86,7 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
        
        if(population > 0)
        {
-         currentCountry.refugeePercent = (float)immigrantCountry.number / (float) population;
+         currentCountry.refugeePercent = (float)immigrantCountry.total / (float) population;
        }
         else
        { 
@@ -113,8 +113,8 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
       float m, v, theta, phi;
       px = currentCountryMarker.getScreenPosition(map).x;
       py = currentCountryMarker.getScreenPosition(map).y;
-      println(ISO2 + " " + immigrantCountry.number);
-        for(int i = 0; i < immigrantCountry.number; i++) {
+      println(ISO2 + " " + immigrantCountry.total);
+        for(int i = 0; i < immigrantCountry.total; i++) {
           pz = random(width);
           //v = sq(random(sqrt(width/4)));
           v = 2.0-random(5.0);
