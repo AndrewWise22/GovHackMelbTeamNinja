@@ -93,7 +93,7 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
           currentCountry.refugeePercent = 0;
        }
        
-       println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name + currentCountry.refugeePercent);
+       println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name + " " + currentCountry.refugeePercent);
 
        Location currentCountryLocation = new Location(latitude,longitude);
        SimplePointMarker currentCountryMarker = new SimplePointMarker(currentCountryLocation);
