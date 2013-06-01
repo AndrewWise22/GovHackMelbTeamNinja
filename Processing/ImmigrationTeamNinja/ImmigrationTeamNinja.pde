@@ -46,19 +46,22 @@ String movieName = "immigrationData";
 boolean outputToMovie = false;
 boolean autoAnimation = false;
 
+HashMap<String, Country> countryHashMap = new HashMap<String, Country>();
+HashMap<String, Immigrant> immigrantHashMap = new HashMap<String, Immigrant>();
+
 
 /*
   Particle variables
 */
 
-particle[] Z = new particle[8000];
+particle[] Z = new particle[1000];
 float colour = random(1);
 boolean tracer = false;
 int depth;
 // end particle variables
 
 void setup() {
-  size(1280, 720);//, GLConstants.GLGRAPHICS);
+  size(1280, 720);
   
   particleSetup();
   
@@ -66,14 +69,33 @@ void setup() {
   //mbTilesConnectionString += sketchPath("data/blank-1-3.mbtiles");
   mbTilesConnectionString += sketchPath("data/CycleMapMelbourne.mbtiles");
 
-  map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
+  //map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
+  map = new UnfoldingMap(this, new Microsoft.RoadProvider());
+  
+  
   MapUtils.createDefaultEventDispatcher(this, map);
   map.setZoomRange(1, 12);
   
+  //Location berlinLocation = new Location(52.5, 13.4);
+  //Location dublinLocation = new Location(53.35, -6.26);
+ 
+  // Create point markers for locations
+  //SimplePointMarker berlinMarker = new SimplePointMarker(berlinLocation);
+  //SimplePointMarker dublinMarker = new SimplePointMarker(dublinLocation);
+
+  // Add markers to the map
+  //map.addMarkers(berlinMarker, dublinMarker);
+
+ 
+  LoadImmigrantData();
+ 
+  LoadCountries();
+   
+  //List<Feature> countries = GeoJSONReader.loadData(this, "countries-simple.geo.json");
+  //List<Feature> countries = GeoJSONReader.loadData(this, "../../../iso-country-flags-svg-collection/iso-3166-1.json");
   
-  List<Feature> countries = GeoJSONReader.loadData(this, "countries-simple.geo.json");
-  List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
-  map.addMarkers(countryMarkers);
+  //List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
+  //map.addMarkers(countryMarkers);
  
   if(outputToMovie) {
     //mm = new MovieMaker(this, width, height, movieName+".mov", 30, MovieMaker.ANIMATION, MovieMaker.HIGH);
@@ -96,21 +118,21 @@ void draw() {
   //map.z
   map.draw();
 
-  fill(255,0,0,191);
-  rect(0,50,200,40);
-  text(mouseLocation.getLat() + ", " + mouseLocation.getLon(), mouseX, mouseY);
-  rect(100,100,20,100);
+  //fill(255,0,0,191);
+  //rect(0,50,200,40);
+  //text(mouseLocation.getLat() + ", " + mouseLocation.getLon(), mouseX, mouseY);
+  //rect(100,100,20,100);
 
 
   particleDraw();  
-  colorMode(RBG,1); // reset colour mode back to RBG as particles force different mode
+  colorMode(RGB,1); // reset colour mode back to RBG as particles force different mode
 
 
   
   drawTeamNinja();
   drawCalendarStamp();
 
-  
+ 
   timeStamp = timeStamp + 1;
   
   if(outputToMovie)
@@ -144,7 +166,7 @@ void movieRender() {
 void drawCalendarStamp() {
   fill(255,0,0);
   textSize(48);
-  println("Current DateTime = " + currentDate);
+  //println("Current DateTime = " + currentDate);
   
   text(currentDate.get(Calendar.YEAR), 1000, 680);
 
@@ -152,12 +174,10 @@ void drawCalendarStamp() {
   {
     currentDate.add(Calendar.YEAR,1);
   }
-  
 }
 
-
 void drawTeamNinja() {
-  fill(255);
+  fill(255,255,255);
   textSize(24);
   text("#GovHack 2103 Melbourne - Team Ninja's Immigration Presentation", 50, 700);
   

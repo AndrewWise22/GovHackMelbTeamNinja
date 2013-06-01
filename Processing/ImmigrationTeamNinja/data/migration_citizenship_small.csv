@@ -1,0 +1,575 @@
+Country_code,Stream,2011
+AF,Family,763
+Africa (so stated),Family,0
+AL,Family,79
+DZ,Family,18
+AS,Family,1
+AD,Family,0
+AO,Family,1
+AG,Family,0
+AR,Family,42
+AM,Family,9
+Aust. Ext. Terr. (so stated),Family,0
+AU,Family,0
+AT,Family,64
+AZ,Family,12
+BS,Family,0
+BH,Family,12
+BD,Family,528
+BB,Family,-1
+BY,Family,16
+BE,Family,70
+BZ,Family,0
+BJ,Family,5
+BM,Family,0
+BT,Family,5
+BO,Family,15
+BA,Family,110
+BW,Family,6
+BR,Family,472
+British Indian Ocean Terr,Family,0
+British West Indies (stated),Family,0
+Brunei Darussallam,Family,10
+BG,Family,33
+BF,Family,1
+BI,Family,37
+KH,Family,746
+CM,Family,10
+CA,Family,903
+CV,Family,1
+KY,Family,0
+CF,Family,0
+Central America (so stated),Family,0
+TD,Family,1
+CL,Family,108
+CO,Family,378
+KM,Family,0
+CG,Family,5
+CR,Family,9
+CI,Family,4
+HR,Family,90
+CU,Family,20
+CY,Family,13
+CZ,Family,99
+Czechoslovakia,Family,0
+TL,Family,13
+CD,Family,74
+DK,Family,82
+DJ,Family,4
+DM,Family,0
+DO,Family,5
+East Africa (so stated),Family,0
+EC,Family,32
+EG,Family,338
+SV,Family,29
+ER,Family,52
+EE,Family,32
+ET,Family,407
+FK,Family,0
+Fed. States of Micronesia,Family,0
+FJ,Family,628
+FI,Family,77
+MK,Family,154
+FR,Family,519
+GF,Family,0
+PF,Family,0
+GA,Family,0
+GM,Family,1
+Gaza Strip,Family,0
+GE,Family,8
+DE,Family,749
+GH,Family,173
+GI,Family,0
+GR,Family,286
+GD,Family,1
+GT,Family,2
+GN,Family,15
+GW,Family,0
+GY,Family,1
+HT,Family,0
+HN,Family,0
+HK,Family,564
+HU,Family,84
+IS,Family,12
+IN,Family,5489
+ID,Family,1098
+IR,Family,422
+IQ,Family,452
+IE,Family,828
+IL,Family,98
+IT,Family,408
+JM,Family,7
+JP,Family,869
+JO,Family,158
+KZ,Family,40
+KE,Family,136
+KI,Family,2
+Korea Dem Peoples Rep Of,Family,0
+KR,Family,1108
+Kosovar,Family,19
+KW,Family,2
+KG,Family,5
+LA,Family,124
+LV,Family,39
+LB,Family,1044
+LS,Family,1
+LR,Family,76
+LY,Family,1
+LI,Family,2
+LT,Family,29
+LU,Family,1
+Macau Spec Admin Rgn,Family,21
+MG,Family,1
+MW,Family,2
+MY,Family,886
+MV,Family,5
+ML,Family,5
+MT,Family,33
+MH,Family,0
+MR,Family,1
+MU,Family,141
+MX,Family,121
+Middle East (so stated),Family,0
+MD,Family,13
+MC,Family,0
+MN,Family,22
+ME,Family,12
+MA,Family,42
+MZ,Family,6
+MM,Family,193
+NA,Family,3
+NR,Family,9
+NP,Family,399
+NL,Family,285
+Netherlands Antilles,Family,0
+NC,Family,0
+NI,Family,10
+NE,Family,1
+NG,Family,121
+NO,Family,95
+OM,Family,-1
+PK,Family,965
+PW,Family,0
+Palestinian Authority,Family,14
+PA,Family,3
+PG,Family,165
+PY,Family,1
+CN,Family,9703
+PE,Family,167
+PH,Family,3859
+PL,Family,237
+PT,Family,92
+QA,Family,1
+Refugee,Family,1
+RE,Family,0
+RO,Family,122
+RU,Family,506
+RW,Family,23
+WS,Family,67
+SA,Family,1
+SN,Family,6
+RS,Family,126
+Serbia and Montenegro,Family,1
+SC,Family,12
+SL,Family,87
+SG,Family,414
+Slovakia,Family,57
+SI,Family,15
+SB,Family,27
+SO,Family,187
+ZA,Family,899
+South America (so stated),Family,0
+SS,Family,11
+ES,Family,165
+LK,Family,794
+St Kitts-Nevis,Family,0
+St Lucia,Family,2
+St Vincent & the Grenadines,Family,0
+Stateless,Family,63
+SD,Family,309
+SR,Family,0
+SZ,Family,0
+SE,Family,244
+CH,Family,118
+SY,Family,204
+Tadjikistan,Family,0
+TW,Family,449
+TZ,Family,23
+TH,Family,2066
+TG,Family,5
+TO,Family,165
+TT,Family,12
+TN,Family,10
+TR,Family,372
+TM,Family,1
+TV,Family,6
+U.S.S.R.,Family,1
+UG,Family,32
+UA,Family,170
+UN Convention Refugee,Family,10
+AE,Family,2
+GB,Family,5746
+United Nations Organisation,Family,0
+US,Family,1896
+Unknown,Family,9
+UY,Family,19
+UZ,Family,39
+VU,Family,19
+VE,Family,57
+VN,Family,3685
+West Bank,Family,0
+YE,Family,7
+MK,Family,4
+ZM,Family,41
+ZW,Family,169
+(blank),Skill,0
+AF,Skill,25
+Africa (so stated),Skill,0
+AL,Skill,44
+DZ,Skill,0
+America Central (so stated),Skill,0
+AS,Skill,1
+AD,Skill,0
+AO,Skill,0
+AG,Skill,1
+AR,Skill,161
+AM,Skill,29
+Aust. Ext. Terr. (so stated),Skill,0
+AT,Skill,102
+AZ,Skill,28
+BS,Skill,0
+BH,Skill,12
+BD,Skill,2005
+BB,Skill,0
+BY,Skill,26
+BE,Skill,132
+BZ,Skill,1
+BJ,Skill,3
+BM,Skill,0
+BT,Skill,3
+BO,Skill,11
+BA,Skill,9
+BW,Skill,62
+BR,Skill,604
+British Indian Ocean Terr,Skill,0
+British West Indies (stated),Skill,0
+Brunei Darussallam,Skill,23
+BG,Skill,54
+BF,Skill,0
+BI,Skill,0
+KH,Skill,53
+CM,Skill,1
+CA,Skill,1101
+CV,Skill,0
+KY,Skill,0
+CF,Skill,1
+Central America (so stated),Skill,0
+CL,Skill,123
+CO,Skill,575
+KM,Skill,0
+CG,Skill,4
+CK,Skill,0
+CR,Skill,5
+CI,Skill,0
+HR,Skill,25
+CU,Skill,15
+CY,Skill,3
+CZ,Skill,99
+Czechoslovakia,Skill,1
+TL,Skill,0
+CD,Skill,3
+DK,Skill,70
+DJ,Skill,0
+DM,Skill,1
+DO,Skill,2
+EC,Skill,10
+EG,Skill,780
+SV,Skill,4
+GQ,Skill,1
+ER,Skill,11
+EE,Skill,32
+ET,Skill,27
+Europe (so stated),Skill,0
+Faeroe Islands,Skill,0
+Fed. States of Micronesia,Skill,0
+FJ,Skill,676
+FI,Skill,78
+MK,Skill,60
+FR,Skill,883
+PF,Skill,0
+GA,Skill,0
+GM,Skill,0
+Gaza Strip,Skill,0
+GE,Skill,5
+DE,Skill,1148
+GH,Skill,78
+GR,Skill,39
+GD,Skill,2
+GT,Skill,3
+GN,Skill,6
+GY,Skill,3
+HN,Skill,0
+HK,Skill,471
+HU,Skill,275
+IS,Skill,8
+IN,Skill,23512
+Indo-China (so stated),Skill,0
+ID,Skill,1240
+IR,Skill,2774
+IQ,Skill,99
+IE,Skill,4109
+IL,Skill,282
+IT,Skill,508
+JM,Skill,8
+JP,Skill,792
+JO,Skill,181
+KZ,Skill,55
+KE,Skill,430
+KI,Skill,0
+Korea Dem Peoples Rep Of,Skill,2
+KR,Skill,3670
+Kosovar,Skill,3
+KW,Skill,3
+KG,Skill,19
+LA,Skill,16
+LV,Skill,31
+LB,Skill,278
+LS,Skill,0
+LR,Skill,0
+LY,Skill,3
+LI,Skill,0
+LT,Skill,44
+LU,Skill,5
+Macau Spec Admin Rgn,Skill,5
+MG,Skill,1
+MW,Skill,22
+MY,Skill,4617
+MV,Skill,22
+ML,Skill,1
+MT,Skill,25
+MH,Skill,0
+MR,Skill,0
+MU,Skill,728
+YT,Skill,0
+MX,Skill,220
+MD,Skill,29
+MC,Skill,0
+MN,Skill,34
+ME,Skill,0
+MA,Skill,14
+MZ,Skill,8
+MM,Skill,246
+NA,Skill,14
+NR,Skill,8
+NP,Skill,2069
+NL,Skill,579
+Netherlands Antilles,Skill,0
+NC,Skill,0
+NI,Skill,3
+NE,Skill,0
+NG,Skill,271
+North Africa (so stated),Skill,0
+MP,Skill,0
+NO,Skill,39
+OM,Skill,3
+PK,Skill,3325
+Palestinian Authority,Skill,46
+PA,Skill,0
+PG,Skill,373
+PY,Skill,3
+CN,Skill,15759
+PE,Skill,164
+PH,Skill,9057
+PL,Skill,329
+PT,Skill,190
+PR,Skill,0
+QA,Skill,0
+Refugee,Skill,0
+RE,Skill,0
+RO,Skill,199
+RU,Skill,860
+RW,Skill,0
+WS,Skill,11
+SM,Skill,0
+Sao Tome & Principe,Skill,0
+SA,Skill,10
+SN,Skill,1
+RS,Skill,89
+Serbia and Montenegro,Skill,0
+SC,Skill,36
+SL,Skill,1
+SG,Skill,1429
+Slovakia,Skill,77
+SI,Skill,67
+SB,Skill,18
+SO,Skill,3
+ZA,Skill,6724
+South America (so stated),Skill,0
+Southeast Asia (so stated),Skill,0
+ES,Skill,140
+LK,Skill,4755
+St Kitts-Nevis,Skill,0
+St Lucia,Skill,9
+St Vincent & the Grenadines,Skill,0
+Stateless,Skill,10
+SD,Skill,11
+SR,Skill,0
+SZ,Skill,0
+SE,Skill,170
+CH,Skill,138
+SY,Skill,35
+Tadjikistan,Skill,3
+TW,Skill,293
+TZ,Skill,28
+TH,Skill,549
+TO,Skill,22
+TT,Skill,24
+TN,Skill,5
+TR,Skill,151
+TM,Skill,1
+TV,Skill,0
+U.S.S.R.,Skill,0
+UG,Skill,22
+UA,Skill,214
+UN Convention Refugee,Skill,0
+AE,Skill,3
+GB,Skill,19463
+United Nations Organisation,Skill,0
+US,Skill,1444
+Unknown,Skill,18
+UY,Skill,8
+UZ,Skill,36
+VU,Skill,3
+Vatican City,Skill,0
+VE,Skill,303
+VN,Skill,1068
+YE,Skill,13
+MK,Skill,12
+ZM,Skill,141
+ZW,Skill,852
+AF,Special Eligibility,1
+AL,Special Eligibility,11
+DZ,Special Eligibility,2
+AG,Special Eligibility,0
+AR,Special Eligibility,0
+AT,Special Eligibility,0
+BH,Special Eligibility,3
+BD,Special Eligibility,5
+BE,Special Eligibility,0
+BO,Special Eligibility,1
+BA,Special Eligibility,0
+BR,Special Eligibility,5
+KH,Special Eligibility,0
+CM,Special Eligibility,1
+CA,Special Eligibility,5
+CL,Special Eligibility,2
+CO,Special Eligibility,7
+CG,Special Eligibility,0
+CI,Special Eligibility,0
+HR,Special Eligibility,0
+CU,Special Eligibility,0
+CY,Special Eligibility,0
+CZ,Special Eligibility,0
+TL,Special Eligibility,0
+CD,Special Eligibility,0
+DK,Special Eligibility,0
+DO,Special Eligibility,0
+EC,Special Eligibility,1
+EG,Special Eligibility,17
+SV,Special Eligibility,1
+ER,Special Eligibility,1
+ET,Special Eligibility,8
+FJ,Special Eligibility,50
+FI,Special Eligibility,0
+MK,Special Eligibility,4
+FR,Special Eligibility,0
+GM,Special Eligibility,0
+DE,Special Eligibility,7
+GH,Special Eligibility,1
+GR,Special Eligibility,0
+GN,Special Eligibility,1
+GY,Special Eligibility,0
+HN,Special Eligibility,0
+HK,Special Eligibility,2
+HU,Special Eligibility,2
+IS,Special Eligibility,0
+IN,Special Eligibility,17
+ID,Special Eligibility,29
+IR,Special Eligibility,9
+IQ,Special Eligibility,0
+IE,Special Eligibility,1
+IL,Special Eligibility,1
+IT,Special Eligibility,2
+JP,Special Eligibility,1
+JO,Special Eligibility,1
+KZ,Special Eligibility,3
+KE,Special Eligibility,7
+KI,Special Eligibility,0
+Korea Dem Peoples Rep Of,Special Eligibility,0
+KR,Special Eligibility,96
+KW,Special Eligibility,0
+LA,Special Eligibility,0
+LV,Special Eligibility,0
+LB,Special Eligibility,7
+LT,Special Eligibility,3
+Macau Spec Admin Rgn,Special Eligibility,0
+MW,Special Eligibility,0
+MY,Special Eligibility,5
+MT,Special Eligibility,1
+MU,Special Eligibility,8
+MX,Special Eligibility,1
+MN,Special Eligibility,1
+MA,Special Eligibility,1
+MM,Special Eligibility,7
+NR,Special Eligibility,5
+NP,Special Eligibility,4
+NL,Special Eligibility,3
+NC,Special Eligibility,0
+NI,Special Eligibility,0
+NG,Special Eligibility,0
+NO,Special Eligibility,0
+PK,Special Eligibility,5
+Palestinian Authority,Special Eligibility,3
+PG,Special Eligibility,2
+CN,Special Eligibility,47
+PE,Special Eligibility,0
+PH,Special Eligibility,17
+PL,Special Eligibility,2
+PT,Special Eligibility,0
+RO,Special Eligibility,0
+RU,Special Eligibility,4
+WS,Special Eligibility,1
+RS,Special Eligibility,2
+SL,Special Eligibility,0
+SG,Special Eligibility,3
+Slovakia,Special Eligibility,1
+SI,Special Eligibility,0
+SB,Special Eligibility,1
+SO,Special Eligibility,3
+ZA,Special Eligibility,17
+ES,Special Eligibility,0
+LK,Special Eligibility,28
+Stateless,Special Eligibility,3
+SD,Special Eligibility,1
+SE,Special Eligibility,4
+CH,Special Eligibility,0
+SY,Special Eligibility,1
+TW,Special Eligibility,1
+TZ,Special Eligibility,0
+TH,Special Eligibility,10
+TO,Special Eligibility,14
+TR,Special Eligibility,6
+TV,Special Eligibility,0
+U.S.S.R.,Special Eligibility,0
+UG,Special Eligibility,2
+UA,Special Eligibility,1
+AE,Special Eligibility,1
+GB,Special Eligibility,65
+US,Special Eligibility,15
+Unknown,Special Eligibility,1
+UY,Special Eligibility,0
+VU,Special Eligibility,1
+VN,Special Eligibility,20
+MK,Special Eligibility,1
+ZM,Special Eligibility,1
+ZW,Special Eligibility,4

@@ -8,6 +8,16 @@ class Country {
   String name;
   float population;
   float refugeeCount;
+  int code;
+  String ISO2;
+  String ISO3;
+  Marker countryMarker;
+  Location countryCentroid;
+
+  Country() {
+    
+    
+  }
 
   // The Constructor is defined with arguments.
   Country(String tempName, color tempC, float tempXpos, float tempYpos, float tempXspeed) { 
@@ -26,3 +36,88 @@ class Country {
   }
 
 }
+
+
+void DebugFeatures(List<Feature> countriesFeatureList) {
+  
+  
+  List<Marker> customMarkers = new ArrayList<Marker>();   
+  
+  float longitude = 0;
+  float latitude = 0;
+  String name = "";
+  for(Feature currentFeature : countriesFeatureList) {
+     HashMap featureHashMap = currentFeature.getProperties();
+     //println(featureHashMap);
+     name = currentFeature.getStringProperty("NAME");
+     //println(name);
+     //Object temp = currentFeature.getProperty("LON");
+     //Double longi = (Double) temp;
+     //println(temp.getClass());
+     //println(longi);
+
+     
+     Double latDouble = (Double) currentFeature.getProperty("LAT");
+     Double longDouble = (Double) currentFeature.getProperty("LON");
+     
+     latitude = latDouble.floatValue();
+     longitude = longDouble.floatValue();
+     
+     //latitude = Float.parseFloat((Double)  currentFeature.getStringProperty("LAT"));
+     name = currentFeature.getStringProperty("NAME");
+     String ISO2 = currentFeature.getStringProperty("ISO2");
+     // println(name);
+      Immigrant immigrantCountry = immigrantHashMap.get(ISO2);
+    println("Testing country ISO2 " + ISO2 + " " + name);
+    if (immigrantCountry != null && immigrantCountry.ISO2 != null) {     
+     
+     //if(name.equals("Taiwan")) {
+       
+      
+       
+       Country currentCountry = new Country();
+       currentCountry.name = name;
+       
+       
+       println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name);
+       Location currentCountryLocation = new Location(latitude,longitude);
+       SimplePointMarker currentCountryMarker = new SimplePointMarker(currentCountryLocation);
+         // Adapt style
+      currentCountryMarker.setColor(color(0, 0, 255, 100));
+      currentCountryMarker.setStrokeColor(color(0, 0, 255));
+      currentCountryMarker.setStrokeWeight(immigrantCountry.immigrantCountry);
+      map.addMarkers(currentCountryMarker);
+      countryHashMap.put(ISO2, currentCountry);
+     }
+  }
+}
+
+void LoadCountries() {
+
+  List<Feature> countriesFeatureList = GeoJSONReader.loadData(this, "countries-simple.geo.json");
+  List<Marker> countryPolygonMarkers = MapUtils.createSimpleMarkers(countriesFeatureList);
+  setCountryMarkers(countryPolygonMarkers);
+  map.addMarkers(countryPolygonMarkers);
+ 
+  DebugFeatures(countriesFeatureList);
+  
+}
+
+// shader maps taken from unolding examples
+// https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/data/choropleth/ChoroplethMapApp.java
+
+void setCountryMarkers(List<Marker> countryPolygonMarkers) {
+  
+	for (Marker marker : countryPolygonMarkers) {
+		// Find data for country of the current marker
+		String countryId = marker.getId();
+		//DataEntry dataEntry = dataEntriesMap.get(countryId);
+                float transparency = map(random(1000), 0, 700, 10, 255);
+                marker.setColor(color(255, 0, 0, transparency));
+    }
+
+
+}
+
+
+
