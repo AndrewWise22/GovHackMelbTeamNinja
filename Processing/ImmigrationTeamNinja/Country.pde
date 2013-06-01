@@ -12,7 +12,9 @@ class Country {
   String ISO2;
   String ISO3;
   Marker countryMarker;
-  Location countryCentroid;
+  float refugeePercent;
+   
+  //Location countryCentroid;
 
   Country() {
     
@@ -60,6 +62,11 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
      Double latDouble = (Double) currentFeature.getProperty("LAT");
      Double longDouble = (Double) currentFeature.getProperty("LON");
      
+     Object temp = currentFeature.getProperty("POP2005");
+     //println(temp.getClass());
+     Integer popInt = (Integer) currentFeature.getProperty("POP2005");
+     int population = popInt.intValue();
+     
      latitude = latDouble.floatValue();
      longitude = longDouble.floatValue();
      
@@ -68,22 +75,31 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
      String ISO2 = currentFeature.getStringProperty("ISO2");
      // println(name);
       Immigrant immigrantCountry = immigrantHashMap.get(ISO2);
-    println("Testing country ISO2 " + ISO2 + " " + name);
-    if (immigrantCountry != null && immigrantCountry.ISO2 != null) {     
+      println("Testing country ISO2 " + ISO2 + " " + name);
+      if (immigrantCountry != null && immigrantCountry.ISO2 != null) {     
      
      //if(name.equals("Taiwan")) {
        
        Country currentCountry = new Country();
        currentCountry.name = name;
+       currentCountry.population = population;
        
+       if(population > 0)
+       {
+         currentCountry.refugeePercent = (float)immigrantCountry.number / (float) population;
+       }
+        else
+       { 
+          currentCountry.refugeePercent = 0;
+       }
        
-       println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name);
+       println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name + currentCountry.refugeePercent);
        Location currentCountryLocation = new Location(latitude,longitude);
        SimplePointMarker currentCountryMarker = new SimplePointMarker(currentCountryLocation);
          // Adapt style
       currentCountryMarker.setColor(color(0, 0, 255, 100));
       currentCountryMarker.setStrokeColor(color(0, 0, 255));
-      currentCountryMarker.setStrokeWeight(immigrantCountry.number);
+      currentCountryMarker.setStrokeWeight((int)currentCountry.refugeePercent * 1000);
       map.addMarkers(currentCountryMarker);
       
       currentCountry.refugeeCount= immigrantCountry.number;
@@ -91,6 +107,7 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
      }
   }
 }
+
 
 void LoadCountries() {
 

@@ -72,7 +72,7 @@ void setup() {
 
   //map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
   map = new UnfoldingMap(this, new Microsoft.RoadProvider());
-  
+  //map.setTweening(true);
   
   MapUtils.createDefaultEventDispatcher(this, map);
   map.setZoomRange(1, 12);
@@ -115,7 +115,7 @@ void draw() {
   
   Location mouseLocation = map.getLocation(mouseX, mouseY);
   //mouseLocation.
-  //map.zoomAndPanTo
+  //map.zoomAndPanTo(australiaLocation,15);
   //map.z
   map.draw();
 
@@ -128,7 +128,7 @@ void draw() {
   particleDraw();  
   colorMode(RGB,1); // reset colour mode back to RBG as particles force different mode
 
-
+  
   
   drawTeamNinja();
   drawCalendarStamp();
@@ -136,9 +136,14 @@ void draw() {
  
   timeStamp = timeStamp + 1;
   
+  // Tools to pan and zoom the map
+  //map.panBy(-0.1, -0.1);
+  //map.zoomIn();
+  
+  
   if(outputToMovie)
   {
-  movieRender();
+    movieRender();
   }
 
 }
