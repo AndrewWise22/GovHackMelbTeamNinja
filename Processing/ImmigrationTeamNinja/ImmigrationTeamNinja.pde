@@ -50,7 +50,7 @@ float frameRate = 30;
 Calendar currentDate = Calendar.getInstance();
 MovieMaker mm;
 String movieName = "immigrationData";
-boolean outputToMovie = false;
+boolean outputToMovie = true;
 boolean autoAnimation = false;
 Location australiaLocation = new Location(-37,150);
 
@@ -75,10 +75,10 @@ void setup() {
   
   String mbTilesConnectionString = "jdbc:sqlite:";
   //mbTilesConnectionString += sketchPath("data/blank-1-3.mbtiles");
-  mbTilesConnectionString += sketchPath("data/CycleMapMelbourne.mbtiles");
+  mbTilesConnectionString += sketchPath("data/world_deff11.mbtiles");
 
-  //map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
-  map = new UnfoldingMap(this, new Microsoft.RoadProvider());
+  map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
+//  map = new UnfoldingMap(this, new Microsoft.RoadProvider());
   //map.setTweening(true);
   
   MapUtils.createDefaultEventDispatcher(this, map);
@@ -136,8 +136,8 @@ void draw() {
 
   
   
-  drawTeamNinja();
-  drawCalendarStamp();
+//  drawTeamNinja();
+//  drawCalendarStamp();
 
  
   timeStamp = timeStamp + 1;
@@ -158,7 +158,7 @@ void draw() {
 
 void movieRender() {
   
-  if(timeStamp < frameRate * 5) // render 5 seconds
+  if(timeStamp < frameRate * 120) // render 5 seconds
   {
     if(outputToMovie)
     {

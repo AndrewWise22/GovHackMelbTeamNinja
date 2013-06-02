@@ -97,7 +97,7 @@ class particle {
   float theta;
   float phi;
   float mass;
-  float colour, lum;
+  float colour, lum, sat;
   
   Location home;
   Location dest;
@@ -130,7 +130,7 @@ class particle {
       float dx = dest.x - home.x;
       float dy = dest.y - home.y;
       float delta = random(0.25); // start halfway between home and dest
-      delta = 1.0;//random(0.5) + 0.75; // for debug!
+//      delta = 1.0;//random(0.5) + 0.75; // for debug!
 
       lum = random(0.5) + 0.5;
  
@@ -215,7 +215,7 @@ class particle {
 //    magnitude *= 0.925;
 //    magnitude *= 0.90;
     float d = (x - dest.x) * (x - dest.x) + (y - dest.y) * (y - dest.y);
-    if (d < 2) {
+    if (d < 5) {
         // loop back to start?
         if (false) {
         x = home.x;
@@ -230,7 +230,7 @@ class particle {
   }
    
   void update() {
-    magnitude = min (magnitude, 5);     
+    magnitude = min (magnitude, 3);     
 //    if (random(10)<2) { phi += (1 - random(2)) * 0.5; }
     x += magnitude * cos(phi) * cos(theta);// + (2 - random(4))*0.01;
     y += magnitude * cos(phi) * sin(theta);// + (2 - random(4))*0.01;
@@ -247,7 +247,7 @@ class particle {
   }
    
   void display() {
-        stroke(colour, 1, lum);
+        stroke(colour, sat, lum);
 
     Location pl = new Location (px, py);
     Location l = new Location(x,y);

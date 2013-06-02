@@ -50,7 +50,7 @@ Immigrant getImmigrant(String countrycode) {
          if (immigrantHashMap.containsKey(countrycode)) {
           // update the existing one
           dataEntry = (Immigrant)immigrantHashMap.get(countrycode);
-          println("Found countrycode " + countrycode);
+//          println("Found countrycode " + countrycode);
         } else {
           dataEntry = new Immigrant();
           dataEntry.ISO2 = countrycode;
@@ -79,7 +79,7 @@ Immigrant getImmigrant(String countrycode) {
           else if (columns[2].equalsIgnoreCase("Special Eligibility"))
             dataEntry.specialeligibility = Integer.parseInt(columns[2]);
             
-          println(dataEntry);
+//          println(dataEntry);
           dataEntry.total = dataEntry.family + dataEntry.skill + dataEntry.specialeligibility;
           i++;
     }
@@ -95,7 +95,7 @@ void loadAsylumDataFromCSV(String fileName) {
   for (String c: nonimacountries) {
     Immigrant dataEntry = getImmigrant(c);
     dataEntry.nonima = Integer.parseInt(nonimavalues[i++]);
-    println("non IMA" + c + " " + dataEntry.nonima);
+//    println("non IMA" + c + " " + dataEntry.nonima);
   }
   
 
@@ -106,7 +106,7 @@ void loadAsylumDataFromCSV(String fileName) {
   for (String c: imacountries) {
     Immigrant dataEntry = getImmigrant(c);
     dataEntry.ima = Integer.parseInt(imavalues[i++]);
-    println("IMA" + c + " " + dataEntry.ima);
+//    println("IMA" + c + " " + dataEntry.ima);
   }
   
 }
