@@ -130,19 +130,24 @@ class particle {
       float dx = dest.x - home.x;
       float dy = dest.y - home.y;
       float delta = random(0.25); // start halfway between home and dest
+      delta = 1.0;//random(0.5) + 0.75; // for debug!
+
       lum = random(0.5) + 0.5;
  
-      x = home.x + delta * dx + 2 - random(4.0);
-      y = home.y + delta * dy + 2 - random(4.0);
+      x = home.x + delta * dx + 1 - random(2.0);
+      y = home.y + delta * dy + 1 - random(2.0);
       px = x;
       py = y;
+      
+      
+      
       // push it in the right direction
-      /*
+      
       gravitate( new particle( 
-        dest.x + 2 - random(4),
-        dest.y + 2 - random(4),
+        dest.x,
+        dest.y,
         depth/2, 0, 0, 0, 5.0 + random (5.0) ));
-   */
+   
     
   }
    
@@ -210,7 +215,7 @@ class particle {
 //    magnitude *= 0.925;
 //    magnitude *= 0.90;
     float d = (x - dest.x) * (x - dest.x) + (y - dest.y) * (y - dest.y);
-    if (d < 20) {
+    if (d < 2) {
         // loop back to start?
         if (false) {
         x = home.x;
@@ -227,14 +232,14 @@ class particle {
   void update() {
     magnitude = min (magnitude, 5);     
 //    if (random(10)<2) { phi += (1 - random(2)) * 0.5; }
-    x += magnitude * cos(phi) * cos(theta) + (2 - random(4))*0.01;
-    y += magnitude * cos(phi) * sin(theta) + (2 - random(4))*0.01;
+    x += magnitude * cos(phi) * cos(theta);// + (2 - random(4))*0.01;
+    y += magnitude * cos(phi) * sin(theta);// + (2 - random(4))*0.01;
     z += magnitude * sin(phi);
     gravitate( 
       new particle( 
         dest.x,
         dest.y,
-        depth/2, 0, 0, 0, 0.1)
+        depth/2, 0, 0, 0, /*0.1*/ 1.0)
     );
     
 
