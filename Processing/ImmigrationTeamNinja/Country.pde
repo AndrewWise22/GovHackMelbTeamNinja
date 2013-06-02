@@ -92,7 +92,7 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
             currentCountry.refugeePercent = 0;
          }
          
-         println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name + currentCountry.refugeePercent);
+         //println("!!!!!!!!!! This country has immigrants: " + ISO2 + " " + name + currentCountry.refugeePercent);
   
          Location currentCountryLocation = new Location(latitude,longitude);
          SimplePointMarker currentCountryMarker = new SimplePointMarker(currentCountryLocation);
@@ -114,8 +114,8 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
         float dx = australiaLocation.x - px;
         float dy = australiaLocation.y - py;
         
-        
-        for(int i = 0; i < immigrantCountry.total / 10; i++) {
+        float SCALE = 1.0;/*
+        for(int i = 0; i < immigrantCountry.total / SCALE; i++) {
           pz = random(width);
           particle p = new particle( px, py, pz, 0, 0, 0, 0.1 ); 
           p.colour = 0.5;
@@ -125,7 +125,7 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
           p.dest = new Location(australiaLocation);
           println(p.dest.y);
           p.dest.x = p.dest.x + 2 - random(4);
-          p.dest.y = p.dest.y + 2 - random(4);
+          p.dest.y = p.dest.y + 2 - random(8);
           //p.colour = 33;
           
           p.respawn();
@@ -133,8 +133,8 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
           Z.add(p);
        
         }
-
-        for(int i = 0; i < immigrantCountry.nonima / 10; i++) {
+*/
+        for(int i = 0; i < immigrantCountry.nonima / SCALE; i++) {
           pz = random(width);
           particle p = new particle( px, py, pz, 0, 0, 0, 0.1 ); 
           p.colour = 0.0;
@@ -151,14 +151,40 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
           Z.add(p);
        
         }
-
-        for(int i = 0; i < immigrantCountry.nonima / 10; i++) {
+        // boat people "IMA" (irregular maritime arrival)
+        for(int i = 0; i < immigrantCountry.ima / SCALE; i++) {
           pz = random(width);
           particle p = new particle( px, py, pz, 0, 0, 0, 0.1 ); 
           p.colour = 0.8;
+          
+          float r = random (1);
+          // choose a home based on immigration figures derived from http://www.immi.gov.au/media/statistics/statistical-info/_pdf/tbl1-permanent-additions-eligibility-category-state.pdf
+          if (r < 0.285089141004862) {
+            p.dest = new Location(-25.4,148.9);
+            // NSW
+          } else if (r < 0.519611021069692) {
+            p.dest = new Location (-37, 145);
+            // VIC
+          } else if (r < 0.658184764991896) {
+          //QLD
+            p.dest = new Location (-25.4, 144.8);
+          } else if (r < 0.754781199351702) {
+          //SA
+            p.dest = new Location (-33.9, 138.7);
+          } else if (r < 0.972285251215559) {
+          // WA
+            p.dest = new Location (-31.9, 117.2);
+
+          } else {
+            //TAS
+            p.dest = new Location (-42.4, 147.1);
+
+          }
+            
+          
+          
           p.home = new Location(-7, 106); // all boat people leave from indonesia somewhere in our model...
 //          p.home = currentCountryMarker.getLocation();
-          p.dest = new Location(australiaLocation);
           println(p.dest.y);
           p.dest.x = p.dest.x + 2 - random(4);
           p.dest.y = p.dest.y + 2 - random(4);

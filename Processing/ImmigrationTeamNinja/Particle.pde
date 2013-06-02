@@ -70,8 +70,6 @@ void particleDraw() {
       stroke( p.colour, pow(r,0.1), 0.9*sqrt(1-r), 0.1+abs(((particle) Z.get(i)).z/depth)*0.05 );
     }
     */
-    stroke( 
-      p.colour);
       
 p.display();
     /*
@@ -99,7 +97,7 @@ class particle {
   float theta;
   float phi;
   float mass;
-  float colour;
+  float colour, lum;
   
   Location home;
   Location dest;
@@ -131,18 +129,20 @@ class particle {
   void respawn() {
       float dx = dest.x - home.x;
       float dy = dest.y - home.y;
-      float delta = random(1.0);
+      float delta = random(0.25); // start halfway between home and dest
+      lum = random(0.5) + 0.5;
  
       x = home.x + delta * dx + 2 - random(4.0);
       y = home.y + delta * dy + 2 - random(4.0);
       px = x;
       py = y;
       // push it in the right direction
+      /*
       gravitate( new particle( 
         dest.x + 2 - random(4),
         dest.y + 2 - random(4),
         depth/2, 0, 0, 0, 5.0 + random (5.0) ));
-   
+   */
     
   }
    
@@ -211,18 +211,22 @@ class particle {
 //    magnitude *= 0.90;
     float d = (x - dest.x) * (x - dest.x) + (y - dest.y) * (y - dest.y);
     if (d < 20) {
-        //magnitude = 0;
+        // loop back to start?
+        if (false) {
         x = home.x;
         y = home.y;
         px = home.x;
         py = home.y;
+        } else {
+          magnitude = 0;
+        }  
         
-    } 
+      } 
   }
    
   void update() {
-    magnitude = min (magnitude, 1);     
-    if (random(10)<2) { phi += (1 - random(2)) * 0.5; }
+    magnitude = min (magnitude, 5);     
+//    if (random(10)<2) { phi += (1 - random(2)) * 0.5; }
     x += magnitude * cos(phi) * cos(theta) + (2 - random(4))*0.01;
     y += magnitude * cos(phi) * sin(theta) + (2 - random(4))*0.01;
     z += magnitude * sin(phi);
@@ -230,7 +234,7 @@ class particle {
       new particle( 
         dest.x,
         dest.y,
-        depth/2, 0, 0, 0, (5.0 + random (5.0) )/0.1)
+        depth/2, 0, 0, 0, 0.1)
     );
     
 
@@ -238,10 +242,20 @@ class particle {
   }
    
   void display() {
+        stroke(colour, 1, lum);
+
     Location pl = new Location (px, py);
     Location l = new Location(x,y);
-    line(map.getScreenPosition(pl).x, map.getScreenPosition(pl).y,
-         map.getScreenPosition(l).x, map.getScreenPosition(l).y);
+    strokeWeight(1);
+    
+/*    line(map.getScreenPosition(pl).x, map.getScreenPosition(pl).y,
+         map.getScreenPosition(l).x, map.getScreenPosition(l).y);*/
+/*    ellipse(
+      map.getScreenPosition(pl).x, map.getScreenPosition(pl).y,
+      2.0, 2.0); */
+    point(
+      map.getScreenPosition(pl).x, map.getScreenPosition(pl).y
+      );
     px = x;
     py = y;
   }
