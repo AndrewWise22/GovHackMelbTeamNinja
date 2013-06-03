@@ -129,7 +129,7 @@ class particle {
   void respawn() {
       float dx = dest.x - home.x;
       float dy = dest.y - home.y;
-      float delta = random(0.25); // start halfway between home and dest
+      float delta = random(0.025); // start halfway between home and dest
 //      delta = 1.0;//random(0.5) + 0.75; // for debug!
 
       lum = random(0.5) + 0.5;
@@ -148,7 +148,7 @@ class particle {
         dest.y,
         depth/2, 0, 0, 0, 5.0 + random (5.0) ));
    
-    
+//      theta = theta + (0.5 - random (1.0)) * 0.2;
   }
    
   void gravitate( particle C ) {
@@ -239,19 +239,24 @@ class particle {
     x += magnitude * cos(phi) * cos(theta);// + (2 - random(4))*0.01;
     y += magnitude * cos(phi) * sin(theta);// + (2 - random(4))*0.01;
     z += magnitude * sin(phi);
-    gravitate( 
-      new particle( 
-        dest.x,
-        dest.y,
-        depth/2, 0, 0, 0, /*0.1*/ 1.0)
-    );
-    
+    if (magnitude > 0) {
+      gravitate( 
+        new particle( 
+          dest.x,
+          dest.y,
+          depth/2, 0, 0, 0, /*0.1*/ 1.0)
+      );
+    }
 
  
   }
    
   void display() {
-        stroke(colour, sat, lum);
+    if (magnitude == 0)
+        stroke(colour, sat, lum, 0.1);
+    else
+        stroke(colour, sat, lum, 0.6);
+    
 
     Location pl = new Location (px, py);
     Location l = new Location(x,y);
