@@ -223,6 +223,10 @@ class particle {
         px = home.x;
         py = home.y;
         } else {
+          x = dest.x;
+          y = dest.y;
+          px = x;
+          py = y;
           magnitude = 0;
         }  
         

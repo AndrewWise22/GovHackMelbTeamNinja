@@ -63,27 +63,29 @@ Immigrant getImmigrant(String countrycode) {
 
   public HashMap<String, Immigrant> loadMigrationDataFromCSV(String fileName) {
           
-        int i = 0;
-    	String[] rows = loadStrings(fileName);
-    	for (String row : rows) {
-       //println(i);
-          String[] columns = row.split(",");
-          String countrycode = columns[0];
+      int i = 0;
+      String[] rows = loadStrings(fileName);
+      for (String row : rows) {
+   //println(i);
+        String[] columns = row.split(",");
+        String countrycode = columns[0];
+        
+        Immigrant dataEntry = getImmigrant(countrycode);
+        
+        if (columns[1].equalsIgnoreCase("Family"))
+          dataEntry.family = Integer.parseInt(columns[2]);
+        else if (columns[2].equalsIgnoreCase("Skill"))
+          dataEntry.family = Integer.parseInt(columns[2]);
+        else if (columns[2].equalsIgnoreCase("Special Eligibility"))
+          dataEntry.specialeligibility = Integer.parseInt(columns[2]);
           
-          Immigrant dataEntry = getImmigrant(countrycode);
-          
-          if (columns[1].equalsIgnoreCase("Family"))
-            dataEntry.family = Integer.parseInt(columns[2]);
-          else if (columns[2].equalsIgnoreCase("Skill"))
-            dataEntry.family = Integer.parseInt(columns[2]);
-          else if (columns[2].equalsIgnoreCase("Special Eligibility"))
-            dataEntry.specialeligibility = Integer.parseInt(columns[2]);
-            
-//          println(dataEntry);
-          dataEntry.total = dataEntry.family + dataEntry.skill + dataEntry.specialeligibility;
-          i++;
-    }
-    return immigrantHashMap;
+  //          println(dataEntry);
+        dataEntry.total = dataEntry.family + dataEntry.skill + dataEntry.specialeligibility;
+        i++;
+      }
+      Immigrant nz = getImmigrant("NZ");
+      nz.total = 44311; // NZ immigration is special. From http://www.immi.gov.au/media/statistics/statistical-info/_pdf/tbl1-permanent-additions-eligibility-category-state.pdf
+      return immigrantHashMap;
   }
   
 

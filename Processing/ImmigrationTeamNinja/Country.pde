@@ -5,6 +5,7 @@
 class State {
   float ima_r, nonima_r, immi_r;
   Location location;
+  int total=0;
   float dw = 4.0, dh = 4.0;
 }
 
@@ -48,46 +49,63 @@ class Country {
   
 }
 
-  State nsw = new State(),vic = new State(),qld = new State(),sa = new State(),wa = new State(),tas = new State();
+  State nsw = new State(),vic = new State(),qld = new State(),sa = new State(),wa = new State(),tas = new State(), nt = new State(), act = new State();
+
+float ima_r[];
+float nonima_r[];
+float immi_r[];
+int totals[];
+   State[] states = new State[] { nsw, vic, qld, sa, wa, tas, nt, act };
+
   void load_states() {
-    nsw.ima_r = 0.285089141004862;
     // whoops, the "non-ima" figures are actually offshore refugees - totally different :( Means the proportions are wrong.
-    nsw.nonima_r = 0.264094955489614;
-    nsw.immi_r = 0.370586887389829;
-    nsw.location = new Location(-34.0,148.5); // not the actual lat long - no idea why I have to fudge all these
-    
-    vic.ima_r = 0.519611021069692;
-    vic.nonima_r = 0.552063663339628;
-    vic.immi_r = 0.463099476322746;
-    vic.location = new Location (-36.5, 145);
-    vic.dh=2.0;
-    vic.dw=6.0;
-
-    qld.ima_r = 0.658184764991896;
-    qld.nonima_r = 0.715942810898301;
-    qld.immi_r = 0.523889630966819;
+  ima_r = new float[] { 0.268713718301253, 0.48976474182707, 0.620378857317446, 0.711426825542316, 0.916437519095631, 0.942560342193706, 0.98380690498014, 1 };
+  nonima_r = new float [] { 0.25844772967265, 0.540258711721225, 0.700633579725449, 0.83078141499472, 0.930834213305174, 0.978616684266104, 0.988648363252376, 1 };
+  immi_r = new float [] { 0.354698248654663, 0.443244428753303, 0.501428250473409, 0.731301687154304, 0.955339089129249, 0.96286013843866, 0.978394368306747, 1 };
+  totals = new int [] { 70025, 20135, 12947, 44555, 42910, 1939, 3250, 4231 } ;
+   
+   for (int i = 0; i < states.length; i++) {
+     states[i].ima_r = ima_r[i];
+     states[i].nonima_r = nonima_r[i];
+     states[i].immi_r = immi_r[i];
+     states[i].total = totals[i];
+   }
+    nsw.location = new Location(-33.0,150.0);
+    vic.location = new Location (-38, 145.0);
     qld.location = new Location (-25.4, 150.0);
-    qld.dh = 6.0;
-    
-    sa.ima_r =  0.754781199351702;
-    sa.nonima_r = 0.848934448340977;
-    sa.immi_r = 0.764060203323143;
     sa.location = new Location (-33.0, 137.5);
-
-    wa.ima_r = 0.972285251215559;
-    wa.nonima_r = 0.951173455624494;
-    wa.immi_r = 0.992142046756498;
-    wa.location = new Location (-30.5, 118.5);
-    wa.dh = 6;
+    wa.location = new Location (-32.5, 118.5);
+    tas.location = new Location (-42.5, 147.0);
     
-    tas.ima_r = 1.0;        //TAS
-    tas.nonima_r = 1.0;
-    tas.immi_r = 1.0;
-    tas.location = new Location (-42.5, 146.5);
-    tas.dw = 0.5; 
-    tas.dh = 0.5;    
+    act.location = nsw.location; // har!
+    nsw.total += act.total; // har har!
+    act.total = nsw.total; // trust me.
+    
+    nt.location = new Location (-12, 131);    
   }
 
+State selectState(float[] r_table) {
+  float r = random(1);
+  float result = r_table[0];
+  int i=0;
+  while (r > r_table[i]) 
+    i++;
+  
+  return states[i];
+}      
+      
+
+// Pick a random location given a state
+Location chooseDestination(State state) {
+  final float pi = 3.141592654;
+  float t = 2*pi*random(1);
+  float u = random(1)+random(1);
+  float r;
+  if (u>1) { r =  2 - u; } else { r =  u; }
+  float CIRCLESCALE = 50.0; // this magic figure determines the size of the circle at each state.
+  float radius = sqrt(state.total) / CIRCLESCALE;
+  return new Location(state.location.x + r * cos(t) * radius, state.location.y + r * sin(t) * radius);
+}
 
 
 void DebugFeatures(List<Feature> countriesFeatureList) {
@@ -168,7 +186,7 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
         float dx = australiaLocation.x - px;
         float dy = australiaLocation.y - py;
         
-        float SCALE = 10.0;
+        float SCALE = 10.0; // each dot represents how many people?
           float dw, dh;
         
          load_states();
@@ -177,7 +195,11 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
         
         
         // Create immigrant particles
-        float BODGY_SCALE = 184998.0 / 58233.0; // there's 120,000 immigrants missing - bad countries?
+        float BODGY_SCALE = 184998.0 / (58233.0 + 44311.0); // there's 120,000 immigrants missing - bad countries?
+/*        int total_incoming = immigrantCountry.total * BODGY_SCALE / SCALE + 
+                             immigrantCountry.nonima / SCALE * 2272.0 / 2014.0 + 
+                             immigrantCountry.ima / SCALE * 4766.0 / 3891.0;
+  */                           
         for(int i = 0; i < immigrantCountry.total * BODGY_SCALE / SCALE; i++) {
           total_immi ++; 
           pz = random(width);
@@ -190,32 +212,10 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
           /// Pick a state!
           float r = random (1);
           // choose a home based on immigration figures derived from http://www.immi.gov.au/media/statistics/statistical-info/_pdf/tbl1-permanent-additions-eligibility-category-state.pdf
-          State dest_state;
-          if (r < nsw.immi_r) { 
-            dest_state = nsw;
-          } else if (r < vic.immi_r) {
-            dest_state = vic;
-          } else if (r < qld.immi_r) {
-            dest_state = qld;
-          } else if (r < sa.immi_r) {
-            dest_state = sa;
-          } else if (r < wa.immi_r) {
-            dest_state = wa;
-          } else {
-            dest_state = tas;
-          }
-          p.dest = new Location(dest_state.location);
-          dh = dest_state.dh;
-          dw = dest_state.dw;
-          
-          p.dest.x = p.dest.x + dh/2.0 - random(dh);
-          p.dest.y = p.dest.y + dw/2.0 - random(dw);
-
-
-
+          p.dest = chooseDestination(selectState(immi_r));
           
           p.respawn();
-          p.colour = 17.0/360.0;
+          p.colour = 17.0/360.0;// + (0.5 - random(1.0)) * 5.0;
           p.lum = 0.5 + random (0.5);
           p.sat = 0.5 + random(0.5);
         
@@ -226,39 +226,18 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
         for(int i = 0; i < immigrantCountry.nonima / SCALE * 2272.0 / 2014.0; i++) {
           total_nonima ++; 
           pz = random(width);
-          float[] nonima_r = {0.264094955489614, 0.552063663339628, 0.715942810898301, 0.848934448340977, 0.951173455624494, 1};
           particle p = new particle( px, py, pz, 0, 0, 0, 0.1 ); 
           p.colour = 0.0;
 //          p.home = new Location(-7, 106);
           p.home = currentCountryMarker.getLocation();
 
           /// Pick a state!
-          float r = random (1);
           // choose a home based on immigration figures derived from http://www.immi.gov.au/media/statistics/statistical-info/_pdf/tbl1-permanent-additions-eligibility-category-state.pdf
-          State dest_state;
-          if (r < nsw.nonima_r) { 
-            dest_state = nsw;
-          } else if (r < vic.nonima_r) {
-            dest_state = vic;
-          } else if (r < qld.nonima_r) {
-            dest_state = qld;
-          } else if (r < sa.nonima_r) {
-            dest_state = sa;
-          } else if (r < wa.nonima_r) {
-            dest_state = wa;
-          } else {
-            dest_state = tas;
-          }
-          p.dest = new Location(dest_state.location);
-          dh = dest_state.dh;
-          dw = dest_state.dw;
-          
-          p.dest.x = p.dest.x + dh/2.0 - random(dh);
-          p.dest.y = p.dest.y + dw/2.0 - random(dw);
+          p.dest = chooseDestination(selectState(nonima_r));
           
           p.respawn();
           p.colour = 120.0/360.0;
-          p.lum = 0.6 + random (0.4);
+          p.lum = 0.6 + random (0.4)  + (0.5 - random(1.0)) * 5.0;
           p.sat = 0.5 + random(0.5);
         
           Z.add(p);
@@ -273,30 +252,7 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
           
           
           /// Pick a state!
-          float r = random (1);
-          // choose a home based on immigration figures derived from http://www.immi.gov.au/media/statistics/statistical-info/_pdf/tbl1-permanent-additions-eligibility-category-state.pdf
-          State dest_state;
-          if (r < nsw.ima_r) { 
-            dest_state = nsw;
-          } else if (r < vic.ima_r) {
-            dest_state = vic;
-          } else if (r < qld.ima_r) {
-            dest_state = qld;
-          } else if (r < sa.ima_r) {
-            dest_state = sa;
-          } else if (r < wa.ima_r) {
-            dest_state = wa;
-          } else {
-            dest_state = tas;
-          }
-          p.dest = new Location(dest_state.location);
-          dh = dest_state.dh;
-          dw = dest_state.dw;
-          
-          p.dest.x = p.dest.x + dh/2.0 - random(dh);
-          p.dest.y = p.dest.y + dw/2.0 - random(dw);
-
-
+          p.dest = chooseDestination(selectState(ima_r));
 
           p.home = new Location(-7, 106); // all boat people leave from indonesia somewhere in our model...
 
@@ -304,7 +260,7 @@ void DebugFeatures(List<Feature> countriesFeatureList) {
           
           p.respawn();
           p.colour = 126.0/256.0;
-          p.lum = 0.5 + random (0.5);
+          p.lum = 0.5 + random (0.5) + (0.5 - random(1.0)) * 5.0;
           p.sat = 0.5 + random(0.5);
           Z.add(p);
        

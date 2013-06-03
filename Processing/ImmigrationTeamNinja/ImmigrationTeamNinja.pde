@@ -46,7 +46,7 @@ Variable declarations
 
 UnfoldingMap map;
 float timeStamp = 0;
-float frameRate = 30;
+float frameRate = 20;
 Calendar currentDate = Calendar.getInstance();
 MovieMaker mm;
 String movieName = "immigrationData";
@@ -146,7 +146,12 @@ void draw() {
   //map.panBy(-0.1, -0.1);
   //map.zoomIn();
   
-  
+  if (timeStamp == 40) {
+    map.zoomAndPanTo(new Location (0, 100), 3);
+  }
+  if (timeStamp == 110) {
+    map.zoomAndPanTo(new Location (-20, 110), 4);
+  }
   if(outputToMovie)
   {
     movieRender();
