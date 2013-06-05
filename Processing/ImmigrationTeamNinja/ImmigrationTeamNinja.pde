@@ -50,6 +50,9 @@ float frameRate = 20;
 Calendar currentDate = Calendar.getInstance();
 MovieMaker mm;
 String movieName = "immigrationData";
+String immigrantRenderMode = "flagPNG";
+String countryRenderMode = "";
+
 boolean outputToMovie = true;
 boolean autoAnimation = false;
 Location australiaLocation = new Location(-37,150);
